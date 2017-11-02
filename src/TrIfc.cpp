@@ -17,46 +17,46 @@
 #include <algorithm>
 
 // Programming communication direction
-const unsigned char UPLOAD                 = 0x80;
-const unsigned char DOWNLOAD               = 0x00;
+static const unsigned char UPLOAD                 = 0x80;
+static const unsigned char DOWNLOAD               = 0x00;
 
 // Programming targets
-const unsigned char CFG_TARGET             = 0x00;
-const unsigned char RFPMG_TARGET           = 0x01;
-const unsigned char RFBAND_TARGET          = 0x02;
-const unsigned char ACCESS_PWD_TARGET      = 0x03;
-const unsigned char USER_KEY_TARGET        = 0x04;
-const unsigned char FLASH_TARGET           = 0x05;
-const unsigned char INTERNAL_EEPROM_TARGET = 0x06;
-const unsigned char EXTERNAL_EEPROM_TARGET = 0x07;
-const unsigned char SPECIAL_TARGET         = 0x08;
+static const unsigned char CFG_TARGET             = 0x00;
+static const unsigned char RFPMG_TARGET           = 0x01;
+static const unsigned char RFBAND_TARGET          = 0x02;
+static const unsigned char ACCESS_PWD_TARGET      = 0x03;
+static const unsigned char USER_KEY_TARGET        = 0x04;
+static const unsigned char FLASH_TARGET           = 0x05;
+static const unsigned char INTERNAL_EEPROM_TARGET = 0x06;
+static const unsigned char EXTERNAL_EEPROM_TARGET = 0x07;
+static const unsigned char SPECIAL_TARGET         = 0x08;
 
 // Length, range and other constants
-const size_t CFG_LEN                     = 32;
-const unsigned char CFG_CHKSUM_INIT      = 0x5f;
-const size_t ACCESS_PWD_LEN              = 16;
-const size_t USER_KEY_LEN                = 16;
-const size_t FLASH_UP_MODULO             = 16;
-const size_t FLASH_DOWN_MODULO           = 32;
-const unsigned int FLASH_APP_LOW         = 0x3a00;
-const unsigned int FLASH_APP_HIGH        = 0x3fff; // TODO: Fix upper limit
-const unsigned int FLASH_EXT_LOW         = 0x2c00; 
-const unsigned int FLASH_EXT_HIGH        = 0x37bf; // TODO: Fix upper limits
-const size_t FLASH_LEN                   = 32;
-const unsigned int INT_EEPROM_UP_LOW     = 0x0000;
-const unsigned int INT_EEPROM_UP_HIGH    = 0x00bf;
-const size_t INT_EEPROM_UP_ADDR_LEN_MAX  = 0x00c0;
-const size_t INT_EEPROM_UP_LEN_MIN       = 1;
-const size_t INT_EEPROM_UP_LEN_MAX       = 32;
-const unsigned int INT_EEPROM_DOWN_LOW   = 0x0000;
-const unsigned int INT_EEPROM_DOWN_HIGH  = 0x00a0;
-const size_t INT_EEPROM_DOWN_LEN         = 32;
-const unsigned int EXT_EEPROM_LOW        = 0x0000;
-const unsigned int EXT_EEPROM_UP_HIGH    = 0x3fe0;
-const unsigned int EXT_EEPROM_DOWN_HIGH  = 0x7fe0;
-const size_t EXT_EEPROM_MODULO           = 32;
-const size_t EXT_EEPROM_LEN              = 32;
-const size_t SPECIAL_LEN                 = 18;
+static const size_t CFG_LEN                     = 32;
+static const unsigned char CFG_CHKSUM_INIT      = 0x5f;
+static const size_t ACCESS_PWD_LEN              = 16;
+static const size_t USER_KEY_LEN                = 16;
+static const size_t FLASH_UP_MODULO             = 16;
+static const size_t FLASH_DOWN_MODULO           = 32;
+static const unsigned int FLASH_APP_LOW         = 0x3a00;
+static const unsigned int FLASH_APP_HIGH        = 0x3fff; // TODO: Fix upper limit
+static const unsigned int FLASH_EXT_LOW         = 0x2c00; 
+static const unsigned int FLASH_EXT_HIGH        = 0x37bf; // TODO: Fix upper limits
+static const size_t FLASH_LEN                   = 32;
+static const unsigned int INT_EEPROM_UP_LOW     = 0x0000;
+static const unsigned int INT_EEPROM_UP_HIGH    = 0x00bf;
+static const size_t INT_EEPROM_UP_ADDR_LEN_MAX  = 0x00c0;
+static const size_t INT_EEPROM_UP_LEN_MIN       = 1;
+static const size_t INT_EEPROM_UP_LEN_MAX       = 32;
+static const unsigned int INT_EEPROM_DOWN_LOW   = 0x0000;
+static const unsigned int INT_EEPROM_DOWN_HIGH  = 0x00a0;
+static const size_t INT_EEPROM_DOWN_LEN         = 32;
+static const unsigned int EXT_EEPROM_LOW        = 0x0000;
+static const unsigned int EXT_EEPROM_UP_HIGH    = 0x3fe0;
+static const unsigned int EXT_EEPROM_DOWN_HIGH  = 0x7fe0;
+static const size_t EXT_EEPROM_MODULO           = 32;
+static const size_t EXT_EEPROM_LEN              = 32;
+static const size_t SPECIAL_LEN                 = 18;
 
 
 void TrIfc::enterProgrammingMode() {
@@ -162,6 +162,9 @@ static void insertAddressData(std::basic_string<unsigned char> &msg, unsigned in
 
 void TrIfc::uploadFlash(unsigned int addr, const std::basic_string<unsigned char>& data) {
     std::basic_string<unsigned char> msg;
+    
+    // Address in Flash is in 16b words not in bytes
+    addr = addr / 2;
     
     if (addr % FLASH_UP_MODULO != 0) {
         TR_THROW_EXCEPTION(TrException, "Address in flash memory should be modulo 16!");

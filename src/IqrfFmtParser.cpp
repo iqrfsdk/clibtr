@@ -15,7 +15,7 @@
 #include "IqrfFmtParser.h"
 #include "TrFmtException.h"
 
-const size_t LINE_LEN = 36;
+const size_t LINE_LEN = 40;
 
 static bool isCommentHeader(const std::string& str) {
     size_t pos = str.find_first_of('#');
@@ -180,11 +180,8 @@ void IqrfFmtParser::parse() {
         
         // Get line counter
         cnt = getLineCounter(line);
-        
-        // Strip trailing line counter
-        line = stripLineCounter(line);
-        
-        // Every line in iqrf file which is not a comment has exactly LINE_LEN (36) chars
+                
+        // Every line in iqrf file which is not a comment has exactly LINE_LEN (40) chars
         if (line.length() != LINE_LEN) {
             TR_THROW_FMT_EXCEPTION(file_name, line_no, 0, "Invalid line length in iqrf file - expected 36!");
         }
