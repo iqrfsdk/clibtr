@@ -170,7 +170,7 @@ void TrIfc::uploadFlash(unsigned int addr, const std::basic_string<unsigned char
         TR_THROW_EXCEPTION(TrException, "Address in flash memory should be modulo 16!");
     }
     
-    if (!(((addr >= FLASH_APP_LOW) and (addr <= FLASH_APP_HIGH)) or ((addr >= FLASH_EXT_LOW) and (addr <= FLASH_EXT_HIGH)))) {
+    if (!(((addr >= FLASH_APP_LOW) && (addr <= FLASH_APP_HIGH)) || ((addr >= FLASH_EXT_LOW) && (addr <= FLASH_EXT_HIGH)))) {
         TR_THROW_EXCEPTION(TrException, "Address in flash memory is outside application or extended flash memory!");
     }
     
@@ -190,7 +190,7 @@ void TrIfc::uploadFlash(unsigned int addr, const std::basic_string<unsigned char
 void TrIfc::uploadInternalEeprom(unsigned int addr, const std::basic_string<unsigned char>& data) {
     std::basic_string<unsigned char> msg;
         
-    if (!((addr >= INT_EEPROM_UP_LOW) and (addr <= INT_EEPROM_UP_HIGH))) {
+    if (!((addr >= INT_EEPROM_UP_LOW) && (addr <= INT_EEPROM_UP_HIGH))) {
         TR_THROW_EXCEPTION(TrException, "Address in internal eeprom memory is outside of addressable range!");
     }
     
@@ -198,7 +198,7 @@ void TrIfc::uploadInternalEeprom(unsigned int addr, const std::basic_string<unsi
         TR_THROW_EXCEPTION(TrException, "End of write is out of the addressable range of the internal eeprom!");
     }
     
-    if ((data.length() < INT_EEPROM_UP_LEN_MIN) or (data.length() > INT_EEPROM_UP_LEN_MAX)) {
+    if ((data.length() < INT_EEPROM_UP_LEN_MIN) || (data.length() > INT_EEPROM_UP_LEN_MAX)) {
         TR_THROW_EXCEPTION(TrException, "Data to be programmed into the internal eeprom memory must be 1-32B long!");
     }
     
@@ -214,7 +214,7 @@ void TrIfc::uploadInternalEeprom(unsigned int addr, const std::basic_string<unsi
 void TrIfc::uploadExternalEeprom(unsigned int addr, const std::basic_string<unsigned char>& data) {
     std::basic_string<unsigned char> msg;
     
-    if (!((addr >= EXT_EEPROM_LOW) and (addr <= EXT_EEPROM_UP_HIGH))) {
+    if (!((addr >= EXT_EEPROM_LOW) && (addr <= EXT_EEPROM_UP_HIGH))) {
         TR_THROW_EXCEPTION(TrException, "Address in external eeprom memory is outside of addressable range!");
     }
     
@@ -384,7 +384,7 @@ void TrIfc::downloadFlash(unsigned int addr, std::basic_string<unsigned char>& d
         TR_THROW_EXCEPTION(TrException, "Address in flash memory should be modulo 16!");
     }
     
-    if (!(((addr >= FLASH_APP_LOW) and (addr <= FLASH_APP_HIGH)) or ((addr >= FLASH_EXT_LOW) and (addr <= FLASH_EXT_HIGH)))) {
+    if (!(((addr >= FLASH_APP_LOW) && (addr <= FLASH_APP_HIGH)) || ((addr >= FLASH_EXT_LOW) && (addr <= FLASH_EXT_HIGH)))) {
         TR_THROW_EXCEPTION(TrException, "Address in flash memory is outside application or extended flash memory!");
     }
        
@@ -400,7 +400,7 @@ void TrIfc::downloadFlash(unsigned int addr, std::basic_string<unsigned char>& d
 void TrIfc::downloadInternalEeprom(unsigned int addr, std::basic_string<unsigned char>& data) {
     std::basic_string<unsigned char> msg;
         
-    if (!((addr >= INT_EEPROM_DOWN_LOW) and (addr <= INT_EEPROM_DOWN_HIGH))) {
+    if (!((addr >= INT_EEPROM_DOWN_LOW) && (addr <= INT_EEPROM_DOWN_HIGH))) {
         TR_THROW_EXCEPTION(TrException, "Address in internal eeprom memory is outside of addressable range!");
     }
         
@@ -419,7 +419,7 @@ void TrIfc::downloadInternalEeprom(unsigned int addr, std::basic_string<unsigned
 void TrIfc::downloadExternalEeprom(unsigned int addr, std::basic_string<unsigned char>& data) {
     std::basic_string<unsigned char> msg;
     
-    if (!((addr >= EXT_EEPROM_LOW) and (addr <= EXT_EEPROM_DOWN_HIGH))) {
+    if (!((addr >= EXT_EEPROM_LOW) && (addr <= EXT_EEPROM_DOWN_HIGH))) {
         TR_THROW_EXCEPTION(TrException, "Address in external eeprom memory is outside of addressable range!");
     }
     

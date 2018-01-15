@@ -33,7 +33,7 @@ static std::string getHeader(const std::string& str) {
     std::locale loc;
     
     for (i = last; i >= 0; i--) {
-        if (not std::isspace(str[i], loc)) {
+        if (!std::isspace(str[i], loc)) {
             break;
         }
     }

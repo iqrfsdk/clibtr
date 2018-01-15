@@ -44,13 +44,13 @@ void TrconfFmtParser::parse() {
 static bool checkChannel(unsigned char rfband, unsigned char channel) {
     switch (rfband & RFBAND_MASK) {
         case RF_433:
-            if ((channel >= 0) and (channel <= 16))
+            if ((channel >= 0) && (channel <= 16))
                 return true;
             else
                 return false;
             break;
         case RF_868:
-            if ((channel >= 0) and (channel <= 67))
+            if ((channel >= 0) && (channel <= 67))
                 return true;
             else
                 return false;

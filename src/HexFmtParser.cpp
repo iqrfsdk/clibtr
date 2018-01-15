@@ -179,7 +179,7 @@ void HexFmtParser::parse() {
         }
     }
     
-    if ((memory == TrMemory::FLASH) or (memory == TrMemory::EXTERNAL_EEPROM)) {
+    if ((memory == TrMemory::FLASH) || (memory == TrMemory::EXTERNAL_EEPROM)) {
         // Convert to Tr upload data
         // Init fake data memory for programming data grouping
         prgData.fill(0);
