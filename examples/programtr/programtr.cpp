@@ -14,7 +14,9 @@
 #include <IqrfLogging.h>
 #include <programtr_cmd.h>
 
-TRC_INIT("log.txt")
+using namespace iqrf;
+
+TRC_INIT()
 
 IChannel * getInterface(std::string interface, std::string dev) {
     IChannel * channel = nullptr;
@@ -25,9 +27,9 @@ IChannel * getInterface(std::string interface, std::string dev) {
     if (interface == "spi") {
         channel = new IqrfSpiChannel(dev);
     }
-    if (interface == "test") {
-        channel = new IqrfFakeChannel(dev);
-    }
+    //if (interface == "test") {
+    //    channel = new IqrfFakeChannel(dev);
+    //}
     return channel;
 }
 
@@ -85,6 +87,9 @@ int main (int argc, char * argv[]) {
         exit(1);
     }
     
+    TRC_START("log.txt", Level::dbg, 1000000);
+    TRC_ENTER("");
+
     IChannel * channel = getInterface(cmd.getInterface(), cmd.getDev());
     if (channel == nullptr) {
         std::cerr << "Unknown interface specified: " << cmd.getInterface() << "\n";

@@ -15,7 +15,9 @@
 #include <TrIfc.h>
 #include <IqrfLogging.h>
 
-TRC_INIT("log.txt")
+using namespace iqrf;
+
+TRC_INIT()
 
 IChannel * getInterface(std::string interface, std::string dev) {
     IChannel * channel = nullptr;
@@ -26,9 +28,9 @@ IChannel * getInterface(std::string interface, std::string dev) {
     if (interface == "spi") {
         channel = new IqrfSpiChannel(dev);
     }
-    if (interface == "test") {
-        channel = new IqrfFakeChannel(dev);
-    }
+    //if (interface == "test") {
+    //    channel = new IqrfFakeChannel(dev);
+    //}
     return channel;
 }
 
@@ -124,6 +126,10 @@ int main (int argc, char * argv[]) {
         std::cout << "<dev>       - interface device file\n";
         exit(1);
     }
+
+    TRC_START("log.txt", Level::dbg, 1000000);
+    TRC_ENTER("");
+
     IChannel * channel = getInterface(argv[1], argv[2]);
     if (channel == nullptr) {
         std::cerr << "Unknown interface specified: " << argv[1] << "\n";
